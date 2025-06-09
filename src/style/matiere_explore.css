@@ -1,0 +1,33 @@
+.matiere-explore-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.matiere-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none !important;
+}
+
+.matiere-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.matiere-icon {
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.matiere-card:hover .matiere-icon {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .matiere-explore-container {
+    padding: 1rem;
+  }
+}

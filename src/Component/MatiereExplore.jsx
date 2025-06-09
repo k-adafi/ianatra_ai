@@ -1,0 +1,70 @@
+import React from 'react'
+import '../style/matiere_explore.css'
+import { 
+  BookOpen, 
+  Globe2, 
+  Landmark, 
+  Scale, 
+  Atom, 
+  Leaf, 
+  Brain, 
+  Languages, 
+  BookText, 
+  Backpack,
+  CircleArrowLeft,
+  SquareRadical
+} from 'lucide-react';
+import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+function MatiereExplore() {
+  const matieres = [
+    { nom: "Malagasy", icon: <BookOpen size={24} />, color: "#4CAF50" },
+    { nom: "Histoire", icon: <Landmark size={24} />, color: "#9C27B0" },
+    { nom: "Géographie", icon: <Globe2 size={24} />, color: "#2196F3" },
+    { nom: "Education civique", icon: <Scale size={24} />, color: "#FF9800" },
+    { nom: "Mathématiques", icon: <SquareRadical size={24}/>, color: "#F44336" },
+    { nom: "Physique", icon: <Atom size={24} />, color: "#673AB7" },
+    { nom: "SVT", icon: <Leaf size={24} />, color: "#009688" },
+    { nom: "Philosophie", icon: <Brain size={24} />, color: "#795548" },
+    { nom: "Anglais", icon: <Languages size={24} />, color: "#E91E63" },
+    { nom: "Français", icon: <BookText size={24} />, color: "#3F51B5" },
+    { nom: "EPS", icon: <BookText size={24} />, color: "#FF5722" }
+  ];
+
+  return (
+    <Container className="matiere-explore-container">
+      <div className="row">
+        <div className="col">
+          <Link to="/" className='btn btn-primary'><CircleArrowLeft /></Link>
+        </div>
+        <div className="col">
+          <h2 className="text-center mb-4">Explorez les modules</h2>
+        </div>
+      </div>
+      <hr />
+      <Row xs={1} sm={2} md={3} lg={4} className="g-4 mt-5">
+        {matieres.map((matiere, index) => (
+          <Col key={index}>
+            <Card 
+              className="matiere-card h-100"
+              style={{ borderLeft: `5px solid ${matiere.color}` }}
+            >
+              <Card.Body className="d-flex flex-column align-items-center">
+                <div 
+                  className="matiere-icon mb-3"
+                  style={{ color: matiere.color }}
+                >
+                  {matiere.icon}
+                </div>
+                <Card.Title className="text-center">{matiere.nom}</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
+}
+
+export default MatiereExplore;
