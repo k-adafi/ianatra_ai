@@ -8,7 +8,9 @@ function Historique() {
   return (
     <div className="historique-container">
       <div className='historique-logo bg-light'>
-        <img src={logo} alt="Logo" />
+        <Link to="/">
+          <img src={logo} alt="Logo" />
+        </Link>
         <Link to="/modules" className='btn btn-primary'>Explorer les modules</Link>
       </div>  
       <div className="historique-header mt-5 bg-light">

@@ -19,17 +19,17 @@ import { Link } from 'react-router-dom';
 
 function MatiereExplore() {
   const matieres = [
-    { nom: "Malagasy", icon: <BookOpen size={24} />, color: "#4CAF50" },
-    { nom: "Histoire", icon: <Landmark size={24} />, color: "#9C27B0" },
-    { nom: "Géographie", icon: <Globe2 size={24} />, color: "#2196F3" },
-    { nom: "Education civique", icon: <Scale size={24} />, color: "#FF9800" },
-    { nom: "Mathématiques", icon: <SquareRadical size={24}/>, color: "#F44336" },
-    { nom: "Physique", icon: <Atom size={24} />, color: "#673AB7" },
-    { nom: "SVT", icon: <Leaf size={24} />, color: "#009688" },
-    { nom: "Philosophie", icon: <Brain size={24} />, color: "#795548" },
-    { nom: "Anglais", icon: <Languages size={24} />, color: "#E91E63" },
-    { nom: "Français", icon: <BookText size={24} />, color: "#3F51B5" },
-    { nom: "EPS", icon: <BookText size={24} />, color: "#FF5722" }
+    { nom: "Malagasy", icon: <BookOpen size={24} />, color: "#4CAF50", path: "/malagasy" },
+    { nom: "Histoire", icon: <Landmark size={24} />, color: "#9C27B0", path: "/histoire" },
+    { nom: "Géographie", icon: <Globe2 size={24} />, color: "#2196F3", path: "/geographie" },
+    { nom: "Education civique", icon: <Scale size={24} />, color: "#FF9800", path: "/civique" },
+    { nom: "Mathématiques", icon: <SquareRadical size={24}/>, color: "#F44336", path: "/math" },
+    { nom: "Physique", icon: <Atom size={24} />, color: "#673AB7", path: "/physique" },
+    { nom: "SVT", icon: <Leaf size={24} />, color: "#009688", path: "/SVT" },
+    { nom: "Philosophie", icon: <Brain size={24} />, color: "#795548", path: "/philosophie" },
+    { nom: "Anglais", icon: <Languages size={24} />, color: "#E91E63", path: "/anglais" },
+    { nom: "Français", icon: <BookText size={24} />, color: "#3F51B5", path: "/francais" },
+    { nom: "EPS", icon: <BookText size={24} />, color: "#FF5722", path: "/EPS" }
   ];
 
   return (
@@ -46,20 +46,22 @@ function MatiereExplore() {
       <Row xs={1} sm={2} md={3} lg={4} className="g-4 mt-5">
         {matieres.map((matiere, index) => (
           <Col key={index}>
-            <Card 
-              className="matiere-card h-100"
-              style={{ borderLeft: `5px solid ${matiere.color}` }}
-            >
-              <Card.Body className="d-flex flex-column align-items-center">
-                <div 
-                  className="matiere-icon mb-3"
-                  style={{ color: matiere.color }}
-                >
-                  {matiere.icon}
-                </div>
-                <Card.Title className="text-center">{matiere.nom}</Card.Title>
-              </Card.Body>
-            </Card>
+            <Link to={matiere.path}>
+              <Card 
+                className="matiere-card h-100"
+                style={{ borderLeft: `5px solid ${matiere.color}` }}
+              >
+                <Card.Body className="d-flex flex-column align-items-center">
+                  <div 
+                    className="matiere-icon mb-3"
+                    style={{ color: matiere.color }}
+                  >
+                    {matiere.icon}
+                  </div>
+                  <Card.Title className="text-center">{matiere.nom}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
           </Col>
         ))}
       </Row>

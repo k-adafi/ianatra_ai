@@ -1,78 +1,92 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/chatetude.css';
 import { Paperclip, Send } from 'lucide-react';
 import logo from '../assets/Logo/logo_long_bleu.png';
+import { 
+  BookOpen, 
+  Globe2, 
+  Landmark, 
+  Scale, 
+  Atom, 
+  Leaf, 
+  Brain, 
+  Languages, 
+  BookText, 
+  Backpack,
+  CircleArrowLeft,
+  SquareRadical
+} from 'lucide-react';
+import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function ChatEtude() {
-  const [messages, setMessages] = useState([
-    { text: "Bonjour ! Sur quel matière puis-je vous aider aujourd'hui ?", sender: "bot" }
-  ]);
-  const [inputMessage, setInputMessage] = useState("");
-  const messagesEndRef = useRef(null);
-  const [showWelcome, setShowWelcome] = useState(true);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    // Masquer le welcome après le premier message utilisateur
-    if (messages.length > 1 && messages.some(msg => msg.sender === "user")) {
-      setShowWelcome(false);
-    }
-  }, [messages]);
+  const matieres = [
+    { nom: "Malagasy", icon: <BookOpen size={24} />, color: "#4CAF50", path: "/malagasy" },
+    { nom: "Histoire", icon: <Landmark size={24} />, color: "#9C27B0", path: "/histoire" },
+    { nom: "Géographie", icon: <Globe2 size={24} />, color: "#2196F3", path: "/geographie" },
+    { nom: "Education civique", icon: <Scale size={24} />, color: "#FF9800", path: "/civique" },
+    { nom: "Mathématiques", icon: <SquareRadical size={24}/>, color: "#F44336", path: "/math" },
+    { nom: "Physique", icon: <Atom size={24} />, color: "#673AB7", path: "/physique" },
+    { nom: "SVT", icon: <Leaf size={24} />, color: "#009688", path: "/SVT" },
+    { nom: "Philosophie", icon: <Brain size={24} />, color: "#795548", path: "/philosophie" },
+    { nom: "Anglais", icon: <Languages size={24} />, color: "#E91E63", path: "/anglais" },
+    { nom: "Français", icon: <BookText size={24} />, color: "#3F51B5", path: "/francais" },
+    { nom: "EPS", icon: <BookText size={24} />, color: "#FF5722", path: "/EPS" }
+  ];
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (inputMessage.trim() === "") return;
 
-    setMessages([...messages, { text: inputMessage, sender: "user" }]);
-    setInputMessage("");
-    
-    setTimeout(() => {
-      setMessages(prev => [...prev, { text: "Je réfléchis à votre question...", sender: "bot" }]);
-    }, 1000);
-  };
 
   return (
     <div className="chat-container">
       <div className="chat-messages">
-        {showWelcome && (
-          <div className="welcome-container">
+        <div className="welcome-container">
             <div className="logo-container">
               <img src={logo} alt="Logo" className="welcome-logo" />
             </div>
             <div className="welcome-message">
-              {messages[0].text}
+              <p>Bonjour ! Sur quel matière puis-je vous aider aujourd'hui ?</p>
             </div>
+            <Row xs={1} sm={2} md={3} lg={4} className="g-4 mt-2 mb-5">
+              {matieres.map((matiere, index) => (
+                <Col key={index}>
+                  <Link to={matiere.path}>
+                    <Card 
+                      className="matiere-card h-100"
+                      style={{ borderLeft: `5px solid ${matiere.color}` }}
+                    >
+                      <Card.Body className="d-flex flex-column align-items-center">
+                        <div 
+                          className="matiere-icon mb-3"
+                          style={{ color: matiere.color }}
+                        >
+                          {matiere.icon}
+                        </div>
+                        <Card.Title className="text-center">{matiere.nom}</Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                </Col>
+              ))}
+            </Row>
           </div>
-        )}
-        
-        {messages.slice(1).map((msg, index) => (
-          <div 
-            key={index + 1} 
-            className={`message ${msg.sender === "user" ? "user-message" : "bot-message"}`}
-          >
-            <div className="message-content">
-              {msg.text}
-            </div>
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSendMessage} className="chat-input">
+      {/* <form onSubmit={handleSendMessage} className="chat-input">
         <input
           type="text"
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           placeholder="Tapez votre message..."
         />
-        <button type="button" className="btn">
+        <button type="button" className="btn ms-2">
           <Paperclip />
         </button>
         <button type="submit" className="btn btn-primary ms-2">
           <Send/>
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }

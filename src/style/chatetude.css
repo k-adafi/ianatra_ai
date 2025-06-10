@@ -6,7 +6,7 @@
 }
 
 .chat-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #a1a1a1;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -93,26 +93,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 150px); /* Ajustez selon la hauteur de votre input */
+  /* height: calc(100vh - 150px);  */
   text-align: center;
 }
 
-.logo-container {
-  margin-bottom: 30px;
+/* .logo-container {
   max-width: 300px;
-}
+} */
 
 .welcome-logo {
-  width: 100%;
+  width: 50%;
   height: auto;
 }
 
 .welcome-message {
   font-size: 1.5rem;
-  color: #333;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  max-width: 600px;
+  color: #000000;
 }
 
 
