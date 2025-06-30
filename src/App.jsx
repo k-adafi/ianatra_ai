@@ -16,12 +16,29 @@ import ChatPhilo from './Component/ChatPhilo';
 import ChatAnglais from './Component/ChatAnglais';
 import ChatFrancais from './Component/ChatFrancais';
 import ChatEPS from './Component/ChatEPS';
+import ChatAllemand from './Component/ChatAllemand';
+import ChatEspagnol from './Component/ChatEspagnol';
+import ChatEDH from './Component/ChatEDH';
+import ChatInformatique from './Component/ChatInformatique';
+import Connexion from './Component/Connexion';
+import Home from './Component/Home';
+import Error from './Component/Error';
+import Inscription from './Component/Inscription';
+import Header from './Component/Header';
 
 function App() {
   return (
     <div className="app-container">
       <Routes>
+        <Route path="/*" element={<Error />} />
         <Route path='/' element={
+          <div className='container-fluid'>
+            {/* <Header /> */}
+            <Home />
+            <Footer />
+          </div>
+        } />
+        <Route path='/acceuil' element={
           <div className='container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
@@ -93,6 +110,18 @@ function App() {
             </div>
           </div>
         } />
+        <Route path='/EDH' element={
+          <div className='container-fluid h-100'>
+            <div className='row g-0 h-100'>
+              <div className="col-md-3 col-lg-2 h-100">
+                <Historique />
+              </div>
+              <div className="col-md-9 col-lg-10 h-100">
+                <ChatEDH/>
+              </div>
+            </div>
+          </div>
+        } />
         <Route path='/physique' element={
           <div className='container-fluid h-100'>
             <div className='row g-0 h-100'>
@@ -153,6 +182,42 @@ function App() {
             </div>
           </div>
         } />
+        <Route path='/allemand' element={
+          <div className='container-fluid h-100'>
+            <div className='row g-0 h-100'>
+              <div className="col-md-3 col-lg-2 h-100">
+                <Historique />
+              </div>
+              <div className="col-md-9 col-lg-10 h-100">
+                <ChatAllemand />
+              </div>
+            </div>
+          </div>
+        } />
+        <Route path='/espagnol' element={
+          <div className='container-fluid h-100'>
+            <div className='row g-0 h-100'>
+              <div className="col-md-3 col-lg-2 h-100">
+                <Historique />
+              </div>
+              <div className="col-md-9 col-lg-10 h-100">
+                <ChatEspagnol />
+              </div>
+            </div>
+          </div>
+        } />
+        <Route path='/informatique' element={
+          <div className='container-fluid h-100'>
+            <div className='row g-0 h-100'>
+              <div className="col-md-3 col-lg-2 h-100">
+                <Historique />
+              </div>
+              <div className="col-md-9 col-lg-10 h-100">
+                <ChatInformatique />
+              </div>
+            </div>
+          </div>
+        } />
         <Route path='/EPS' element={
           <div className='container-fluid h-100'>
             <div className='row g-0 h-100'>
@@ -166,9 +231,29 @@ function App() {
           </div>
         } />
         <Route path='/modules' element={
-          <div className='container'>
-            <MatiereExplore />
-            <Footer/>
+          <div className='row'>
+            <div className="container">
+              <MatiereExplore />
+            </div>
+            <Footer />
+          </div>
+        } />
+        <Route path='/connexion' element={
+          <div className='row'>
+            <Header />
+            <div className="container">
+              <Connexion />
+            </div>
+            <Footer />
+          </div>
+        } />
+        <Route path='/inscription' element={
+          <div className='row'>
+            <Header />
+            <div className="container">
+              <Inscription />
+            </div>
+            <Footer />
           </div>
         } />
       </Routes>

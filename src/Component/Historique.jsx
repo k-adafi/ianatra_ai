@@ -11,7 +11,7 @@ function Historique() {
         <Link to="/">
           <img src={logo} alt="Logo" />
         </Link>
-        <Link to="/modules" className='btn btn-primary'>Explorer les modules</Link>
+        <Link to="/modules" className='btn-history'>Explorer les modules</Link>
       </div>  
       <div className="historique-header mt-5 bg-light">
         <h4>Historique</h4>

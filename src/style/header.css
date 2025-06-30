@@ -1,0 +1,46 @@
+header {
+    background: #fff;
+    height: 13vh;
+    box-shadow: 0 5px 30px rgb(0 22 84 / 10%);
+    padding: 5px 0;
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+}
+
+header img {
+    width: 90px;
+}
+
+nav .nav-style {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #000000;
+    position: relative; /* Nécessaire pour le pseudo-élément */
+    padding-bottom: 5px; /* Espace sous le texte */
+}
+
+
+nav .nav-style:hover,
+nav .nav-style:focus {
+    color: #158B4F;
+}
+
+/* Soulignement personnalisé */
+nav .nav-style::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px; /* Épaisseur du soulignement (plus gras) */
+    bottom: 0;
+    left: 0;
+    background-color: #158B4F;
+    transition: width 0.3s ease;
+}
+
+nav .nav-style:hover::after,
+nav .nav-style:focus::after {
+    width: 100%;
+}

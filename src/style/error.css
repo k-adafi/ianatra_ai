@@ -1,0 +1,37 @@
+.block{
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+}
+
+.titre-block{
+    font-weight: 300;
+}
+
+.img-block{
+    max-width: 500px;
+}
+
+.soustitre-block{
+    font-weight: 300;
+    color: #158B4F;
+}
+
+ .btn-link{
+    background-color: #158B4F;
+    color: white;
+    text-decoration: none;
+    align-items: center;
+    border-radius: 50px;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .btn-link:hover{
+    background-color: #71AB75;
+    color: white;
+    text-decoration: none;
+    
+  }

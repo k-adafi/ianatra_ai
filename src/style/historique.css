@@ -25,6 +25,17 @@
     margin: 0%;
 }
 
+.btn-history{
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 13px;
+  border-radius: 8px;
+}
+
+.btn-history:hover{
+  background-color: #3f94ee;
+}
 
 
 .historique-content {

@@ -74,7 +74,7 @@
 
 .chat-input input {
   flex: 1;
-  padding: 12px;
+  padding: 15px;
   border-radius: 24px;
   border: 1px solid #ddd;
   outline: none;
@@ -97,9 +97,11 @@
   text-align: center;
 }
 
-/* .logo-container {
-  max-width: 300px;
-} */
+.logo-container {
+  width: 500px;
+  align-items: center;
+  text-align: center;
+}
 
 .welcome-logo {
   width: 50%;
@@ -120,3 +122,32 @@
 .message {
   animation: fadeIn 0.3s ease-out;
 }
+
+
+/* Nouveau */
+/* .app-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+} */
+
+/* Pour les petits écrans */
+/* @media (max-width: 768px) {
+  .col-md-3 {
+    width: 40% !important;
+  }
+  .col-md-9 {
+    width: 60% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-md-3 {
+    width: 100% !important;
+    height: 30vh !important;
+  }
+  .col-md-9 {
+    width: 100% !important;
+    height: 70vh !important;
+  }
+} */
