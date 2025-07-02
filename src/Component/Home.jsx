@@ -3,40 +3,56 @@ import { useNavigate } from 'react-router-dom';
 import '../style/home.css';
 import { FaChalkboardTeacher, FaUserGraduate, FaBrain, FaGlobeAfrica } from 'react-icons/fa';
 import { GiBookshelf } from 'react-icons/gi';
+import video from '../assets/videos/video1.mp4'
 
 function Home() {
   const navigate = useNavigate();
 
   return (
     <div className="welcome-page">
-      {/* Hero Section avec message fort */}
-      <section className="hero-section">
-        <div className="container">
-          <div className="hero-content">
-            <h1 className="hero-title">
-              <span className="highlight">ianatraAI</span> - L'éducation intelligente pour Madagascar
-            </h1>
-            <p className="hero-subtitle">
-              La première intelligence artificielle dédiée à l'enseignement du programme scolaire malgache,
-              du collège au lycée.
-            </p>
-            <div className="cta-buttons">
-              <button 
-                className="btn btn-primary btn-lg me-3"
-                onClick={() => navigate('/connexion')}
-              >
-                S'identifier
-              </button>
-              <button 
-                className="btn btn-outline-light btn-lg"
-                onClick={() => navigate('/inscription')}
-              >
-                S'enregistrer
-              </button>
+      {/* Hero Section avec vidéo en arrière-plan */}
+      <div className="video-background-container">
+        {/* Vidéo en arrière-plan */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="background-video"
+        >
+          <source src={video} type="video/mp4" />
+          Votre navigateur ne supporte pas les vidéos HTML5.
+        </video>
+        
+        {/* Contenu principal */}
+        <section className="hero-section">
+          <div className="container">
+            <div className="hero-content">
+              <h1 className="hero-title">
+                <span className="highlight">ianatraAI</span> - L'éducation intelligente pour Madagascar
+              </h1>
+              <p className="hero-subtitle">
+                La première intelligence artificielle dédiée à l'enseignement du programme scolaire malgache,
+                du collège au lycée.
+              </p>
+              <div className="cta-buttons">
+                <button 
+                  className="btn btn-primary btn-lg me-3"
+                  onClick={() => navigate('/connexion')}
+                >
+                  S'identifier
+                </button>
+                <button 
+                  className="btn btn-outline-light btn-lg"
+                  onClick={() => navigate('/inscription')}
+                >
+                  S'enregistrer
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Section Problématique */}
       <section className="problem-section py-5 bg-light">

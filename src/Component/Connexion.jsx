@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { 
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  sendPasswordResetEmail 
+} from "firebase/auth";
+import { auth, googleProvider } from "../Firebase/firebaseConfig.js";
 import '../style/connexion.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Connexion() {
   const navigate = useNavigate();
-
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -47,15 +52,77 @@ function Connexion() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (!validateForm()) return;
+
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
+      navigate('/acceuil');
+    } catch (error) {
+      console.error("Erreur de connexion:", error);
+      let errorMessage = "Email ou mot de passe incorrect";
+      
+      switch(error.code) {
+        case 'auth/user-not-found':
+          errorMessage = "Aucun compte trouvé avec cet email";
+          break;
+        case 'auth/wrong-password':
+          errorMessage = "Mot de passe incorrect";
+          break;
+        case 'auth/invalid-email':
+          errorMessage = "Email invalide";
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = "Trop de tentatives. Compte temporairement bloqué";
+          break;
+        default:
+          errorMessage = error.message;
+      }
+      
+      setErrors({...errors, general: errorMessage});
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
       setLoading(true);
-      // Simuler une connexion
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/dashboard');
-      }, 1500);
+      await signInWithPopup(auth, googleProvider);
+      navigate('/acceuil');
+    } catch (error) {
+      console.error("Erreur Google:", error);
+      setErrors({
+        ...errors,
+        general: error.message || "Erreur lors de la connexion avec Google"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!credentials.email) {
+      setErrors({...errors, email: "Entrez votre email pour réinitialiser"});
+      return;
+    }
+    
+    if (!/\S+@\S+\.\S+/.test(credentials.email)) {
+      setErrors({...errors, email: "Email invalide"});
+      return;
+    }
+    
+    try {
+      await sendPasswordResetEmail(auth, credentials.email);
+      alert(`Un email de réinitialisation a été envoyé à ${credentials.email}`);
+    } catch (error) {
+      console.error("Erreur de réinitialisation:", error);
+      setErrors({
+        ...errors, 
+        general: error.message || "Erreur lors de l'envoi de l'email"
+      });
     }
   };
 
@@ -70,14 +137,14 @@ function Connexion() {
 
           {errors.general && <div className="alert alert-danger">{errors.general}</div>}
 
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleEmailLogin}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input 
                 type="email" 
                 id="email"
                 name="email" 
-                placeholder="admin@example.com"
+                placeholder="exemple@email.com"
                 value={credentials.email} 
                 onChange={handleChange} 
                 className={`form-control ${errors.email ? 'is-invalid' : ''}`}
@@ -85,7 +152,7 @@ function Connexion() {
               />
               {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
               <input 
@@ -94,22 +161,28 @@ function Connexion() {
                 name="password" 
                 placeholder="••••••••"
                 value={credentials.password} 
-                onChange={handleChange}
+                onChange={handleChange} 
                 className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                 required 
               />
               {errors.password && <div className="invalid-feedback">{errors.password}</div>}
             </div>
 
-            <div className="form-options">
-              <div className="form-check">
-                <input type="checkbox" id="remember" className="form-check-input" />
-                <label htmlFor="remember" className="form-check-label">Se souvenir de moi</label>
-              </div>
-              <a href="/forgot-password" className="forgot-password">Mot de passe oublié ?</a>
+            <div className="text-end mb-3">
+              <button 
+                type="button" 
+                className="btn btn-link p-0"
+                onClick={handleResetPassword}
+              >
+                Mot de passe oublié ?
+              </button>
             </div>
             
-            <button type="submit" className="btn btn-primary w-100 auth-btn" disabled={loading}>
+            <button 
+              type="submit" 
+              className="btn btn-primary w-100 auth-btn" 
+              disabled={loading}
+            >
               {loading ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -118,17 +191,22 @@ function Connexion() {
               ) : "Se connecter"}
             </button>
 
+            <div className="auth-footer">
+              <p>Vous n'avez pas de compte ? <a href="/inscription">S'inscrire</a></p>
+            </div>
+
             <div className="auth-divider">
               <span>Ou continuer avec</span>
             </div>
 
-            <button type="button" className="btn btn-outline-secondary w-100 auth-btn">
+            <button 
+              type="button" 
+              className="btn btn-outline-secondary w-100 auth-btn"
+              onClick={handleGoogleLogin}
+              disabled={loading}
+            >
               <i className="bi bi-google me-2"></i> Google
             </button>
-
-            <div className="auth-footer">
-              <p>Vous n'avez pas de compte ? <a href="/inscription">S'inscrire</a></p>
-            </div>
           </form>
         </div>
       </div>

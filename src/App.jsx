@@ -25,6 +25,7 @@ import Home from './Component/Home';
 import Error from './Component/Error';
 import Inscription from './Component/Inscription';
 import Header from './Component/Header';
+import Compte from './Component/Compte';
 
 function App() {
   return (
@@ -39,10 +40,11 @@ function App() {
           </div>
         } />
         <Route path='/acceuil' element={
-          <div className='container-fluid h-100'>
+          <div className='affiche-form container-fluid'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatEtude />
@@ -51,10 +53,11 @@ function App() {
           </div>
         } />
         <Route path='/malagasy' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatMalagasy />
@@ -63,10 +66,11 @@ function App() {
           </div>
         } />
         <Route path='/math' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatMath />
@@ -75,10 +79,11 @@ function App() {
           </div>
         } />
         <Route path='/histoire' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatHistoire />
@@ -87,10 +92,11 @@ function App() {
           </div>
         } />
         <Route path='/geographie' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatGeographie />
@@ -99,10 +105,11 @@ function App() {
           </div>
         } />
         <Route path='/civique' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatCivique />
@@ -111,10 +118,11 @@ function App() {
           </div>
         } />
         <Route path='/EDH' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatEDH/>
@@ -123,10 +131,11 @@ function App() {
           </div>
         } />
         <Route path='/physique' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatPhysique />
@@ -135,10 +144,11 @@ function App() {
           </div>
         } />
         <Route path='/SVT' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatSVT />
@@ -147,10 +157,11 @@ function App() {
           </div>
         } />
         <Route path='/philosophie' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatPhilo />
@@ -159,10 +170,11 @@ function App() {
           </div>
         } />
         <Route path='/anglais' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatAnglais />
@@ -171,10 +183,11 @@ function App() {
           </div>
         } />
         <Route path='/francais' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatFrancais />
@@ -183,10 +196,11 @@ function App() {
           </div>
         } />
         <Route path='/allemand' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatAllemand />
@@ -195,10 +209,11 @@ function App() {
           </div>
         } />
         <Route path='/espagnol' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatEspagnol />
@@ -207,10 +222,11 @@ function App() {
           </div>
         } />
         <Route path='/informatique' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatInformatique />
@@ -219,10 +235,11 @@ function App() {
           </div>
         } />
         <Route path='/EPS' element={
-          <div className='container-fluid h-100'>
+          <div className=' container-fluid h-100'>
             <div className='row g-0 h-100'>
               <div className="col-md-3 col-lg-2 h-100">
                 <Historique />
+                <Compte />
               </div>
               <div className="col-md-9 col-lg-10 h-100">
                 <ChatEPS />

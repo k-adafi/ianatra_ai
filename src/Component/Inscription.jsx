@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { 
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile
+} from "firebase/auth";
+import { auth, googleProvider } from "../Firebase/firebaseConfig.js";
 import '../style/connexion.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Inscription() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -71,16 +76,60 @@ function Inscription() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleEmailSignUp = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      setLoading(true);
-      // Simuler une inscription
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/connexion');
-      }, 1500);
+    if (!validateForm()) return;
+
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth, 
+        formData.email, 
+        formData.password
+      );
+      
+      await updateProfile(userCredential.user, {
+        displayName: `${formData.prenom} ${formData.nom}`
+      });
+
+      await auth.currentUser.reload();
+      
+      navigate('/acceuil');
+    } catch (error) {
+      console.error("Erreur d'inscription:", error);
+      let errorMessage = "Erreur lors de l'inscription";
+      
+      switch(error.code) {
+        case 'auth/email-already-in-use':
+          errorMessage = "Cet email est déjà utilisé";
+          break;
+        case 'auth/invalid-email':
+          errorMessage = "Email invalide";
+          break;
+        case 'auth/weak-password':
+          errorMessage = "Le mot de passe doit contenir au moins 6 caractères";
+          break;
+        default:
+          errorMessage = error.message;
+      }
+      
+      setErrors({...errors, general: errorMessage});
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleGoogleSignUp = async () => { 
+    try { 
+      setLoading(true); 
+      await signInWithPopup(auth, googleProvider);
+      navigate('/acceuil'); 
+    } catch (error) {
+      console.error("Erreur Google:", error);
+      setErrors({ ...errors, general: error.message }); 
+    } finally { 
+      setLoading(false); 
+    } 
   };
 
   return (
@@ -94,23 +143,8 @@ function Inscription() {
 
           {errors.general && <div className="alert alert-danger">{errors.general}</div>}
 
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleEmailSignUp}>
             <div className="row">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="nom">Nom</label>
-                  <input 
-                    type="text" 
-                    id="nom"
-                    name="nom" 
-                    value={formData.nom} 
-                    onChange={handleChange} 
-                    className={`form-control ${errors.nom ? 'is-invalid' : ''}`}
-                    required 
-                  />
-                  {errors.nom && <div className="invalid-feedback">{errors.nom}</div>}
-                </div>
-              </div>
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="prenom">Prénom</label>
@@ -118,12 +152,29 @@ function Inscription() {
                     type="text" 
                     id="prenom"
                     name="prenom" 
+                    placeholder="Votre prénom"
                     value={formData.prenom} 
                     onChange={handleChange} 
                     className={`form-control ${errors.prenom ? 'is-invalid' : ''}`}
                     required 
                   />
                   {errors.prenom && <div className="invalid-feedback">{errors.prenom}</div>}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label htmlFor="nom">Nom</label>
+                  <input 
+                    type="text" 
+                    id="nom"
+                    name="nom" 
+                    placeholder="Votre nom"
+                    value={formData.nom} 
+                    onChange={handleChange} 
+                    className={`form-control ${errors.nom ? 'is-invalid' : ''}`}
+                    required 
+                  />
+                  {errors.nom && <div className="invalid-feedback">{errors.nom}</div>}
                 </div>
               </div>
             </div>
@@ -142,7 +193,7 @@ function Inscription() {
               />
               {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
               <input 
@@ -151,7 +202,7 @@ function Inscription() {
                 name="password" 
                 placeholder="••••••••"
                 value={formData.password} 
-                onChange={handleChange}
+                onChange={handleChange} 
                 className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                 required 
               />
@@ -166,7 +217,7 @@ function Inscription() {
                 name="confirmPassword" 
                 placeholder="••••••••"
                 value={formData.confirmPassword} 
-                onChange={handleChange}
+                onChange={handleChange} 
                 className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
                 required 
               />
@@ -182,17 +233,22 @@ function Inscription() {
               ) : "S'inscrire"}
             </button>
 
+            <div className="auth-footer">
+              <p>Vous avez déjà un compte ? <a href="/connexion">Se connecter</a></p>
+            </div>
+
             <div className="auth-divider">
               <span>Ou continuer avec</span>
             </div>
 
-            <button type="button" className="btn btn-outline-secondary w-100 auth-btn">
+            <button 
+              type="button" 
+              className="btn btn-outline-secondary w-100 auth-btn"
+              onClick={handleGoogleSignUp}
+              disabled={loading}
+            >
               <i className="bi bi-google me-2"></i> Google
             </button>
-
-            <div className="auth-footer">
-              <p>Vous avez déjà un compte ? <a href="/connexion">Se connecter</a></p>
-            </div>
           </form>
         </div>
       </div>

@@ -31,10 +31,6 @@ function Header() {
               <img src={logo} alt="Logo" className="logo me-3" />
             </Link>
           </div>
-          <nav className="d-flex justify-content-end align-items-center">
-            <Link to="connexion" onClick={handleLinkClick} className="mx-3 nav-link nav-style">Se connecter</Link>
-            <Link to="/inscription" onClick={handleLinkClick} className="mx-3 nav-link nav-style">S'inscrire</Link>
-          </nav>
         </div>
       </header>
 
@@ -60,11 +56,6 @@ function Header() {
             <Offcanvas.Body>
               <Nav className="flex-column">
                 <Nav.Link as={Link} to="/" onClick={handleLinkClick} className="nav-style mb-2">Accueil</Nav.Link>
-                <Nav.Link as={Link} to="/apropos" onClick={handleLinkClick} className="nav-style mb-2">À propos</Nav.Link>
-                <Nav.Link as={Link} to="/annonces" onClick={handleLinkClick} className="nav-style mb-2">Nos publications</Nav.Link>
-                <Nav.Link as={Link} to="/services-listes" onClick={handleLinkClick} className="nav-style mb-2">Nos services</Nav.Link>
-                <Nav.Link as={Link} to="/contacts" onClick={handleLinkClick} className="nav-style mb-2">Contactez-nous</Nav.Link>
-                <Nav.Link as={Link} to="/favoris" onClick={handleLinkClick} className="nav-style mb-2">⭐</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Offcanvas>
