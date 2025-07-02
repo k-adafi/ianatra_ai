@@ -21,10 +21,10 @@ function Historique() {
   return (
     <div className="historique-container">
       <div className='historique-logo'>
-        <Link to="/">
+        <Link to="/acceuil">
           <img src={logo} alt="Logo" />
         </Link>
-        <Link to="/modules" className='btn-history'>Explorer les modules</Link>
+        <Link to="/modules" className='btn btn-primary btn-lg'>Explorer les modules</Link>
       </div>  
       <div className="historique-header">
         <h4>Historique</h4>

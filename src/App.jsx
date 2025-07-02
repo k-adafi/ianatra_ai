@@ -40,17 +40,27 @@ function App() {
           </div>
         } />
         <Route path='/acceuil' element={
-          <div className='affiche-form container-fluid'>
-            <div className='row g-0 h-100'>
-              <div className="col-md-3 col-lg-2 h-100">
-                <Historique />
-                <Compte />
-              </div>
-              <div className="col-md-9 col-lg-10 h-100">
-                <ChatEtude />
-              </div>
+            <div className='affiche-form container-fluid'>
+                {/* On garde g-0 pour enlever les gouttières et h-100 pour la hauteur totale */}
+                <div className='row g-0 h-100'>
+                    {/* 
+                        COLONNE GAUCHE : On la transforme en conteneur flex vertical.
+                        Historique prendra l'espace disponible, et Compte se placera en bas.
+                    */}
+                    <div className="col-md-3 col-lg-2 h-100 d-flex flex-column">
+                        <Historique />
+                        <Compte />
+                    </div>
+                    
+                    {/* 
+                        COLONNE DROITE : C'est cette colonne qui doit gérer le défilement.
+                        On lui ajoute une classe personnalisée pour appliquer le style `overflow`.
+                    */}
+                    <div className="col-md-9 col-lg-10 h-100 main-content-area">
+                        <ChatEtude />
+                    </div>
+                </div>
             </div>
-          </div>
         } />
         <Route path='/malagasy' element={
           <div className=' container-fluid h-100'>
@@ -249,9 +259,7 @@ function App() {
         } />
         <Route path='/modules' element={
           <div className='row'>
-            <div className="container">
-              <MatiereExplore />
-            </div>
+            <MatiereExplore />
             <Footer />
           </div>
         } />

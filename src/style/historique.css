@@ -1,11 +1,25 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --dark-color: #2c3e50;
+  --text-color: #333;
+  --text-light: #f8f9fa;
+  --gradient-primary: linear-gradient(135deg, #3498db, #2c3e50);
+  --gradient-accent: linear-gradient(135deg, #e74c3c, #f39c12);
+}
+
 .historique-container {
-  height: 100%;
   border-right: 1px solid #ddd;
   background-color: white;
   display: flex;
   flex-direction: column;
+  flex: 1; /* <-- CHANGEMENT CLÉ : Permet au conteneur de grandir */
+  min-height: 0; /* Ajout important pour le bon fonctionnement de flex dans certains navigateurs */
 }
 
+/* ... (le reste du fichier est bon, y compris le style pour .historique-content) ... */
 .historique-header {
   padding: 15px;
   border-bottom: 1px solid #ddd;
@@ -27,7 +41,6 @@
   height: 150px;
   width: 100%;
   object-fit: contain;
-  margin-bottom: 15px;
 }
 
 .btn-history {
@@ -35,9 +48,7 @@
   background-color: #3f51b5;
   color: white;
   text-decoration: none;
-  padding: 10px 15px;
   border-radius: 8px;
-  margin-top: 10px;
   transition: all 0.3s;
 }
 

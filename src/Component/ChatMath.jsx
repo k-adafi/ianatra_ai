@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/chatetude.css';
-import { Paperclip, Send } from 'lucide-react';
-import logo from '../assets/Logo/logo_long_bleu.png';
+import { Paperclip, Send, ArrowLeft } from 'lucide-react';
+// import logo from '../assets/Logo/logo_long_bleu.png';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
+import { useNavigate } from 'react-router-dom';
 
 function ChatMath() {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([
     { 
       text: "Bonjour! Je suis votre assistant en mathématiques. Posez-moi vos questions sur les équations, la géométrie, l'algèbre ou tout autre sujet mathématique.", 
@@ -34,7 +35,6 @@ function ChatMath() {
   };
 
   const generateBotResponse = async (userMessage) => {
-    // Simulation de réponse - remplacer par un vrai appel API
     const mathResponses = {
       "équation": "Pour résoudre une équation du type ax² + bx + c = 0, utilisez la formule: $$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$",
       "pythagore": "Le théorème de Pythagore s'énonce: Dans un triangle rectangle, le carré de l'hypoténuse est égal à la somme des carrés des deux autres côtés. $$a^2 + b^2 = c^2$$",
@@ -42,10 +42,8 @@ function ChatMath() {
       "salutation" : "Bonjour, comment puis-je vous aider aujourd'hui ?"
     };
     
-    // Simulation de délai réseau
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Trouve une réponse correspondante ou retourne une réponse par défaut
     const lowerMsg = userMessage.toLowerCase();
     if (lowerMsg.includes("équation")) return mathResponses.équation;
     if (lowerMsg.includes("pythagore")) return mathResponses.pythagore;
@@ -59,20 +57,15 @@ function ChatMath() {
     e.preventDefault();
     if (inputMessage.trim() === "" || isLoading) return;
 
-    // Ajout du message utilisateur
     const userMessage = { text: inputMessage, sender: "user" };
     setMessages(prev => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
 
-    // Ajout d'un message de chargement
     setMessages(prev => [...prev, { text: "Réflexion...", sender: "bot" }]);
 
     try {
-      // Génération de la réponse
       const botResponse = await generateBotResponse(inputMessage);
-      
-      // Remplacement du message de chargement par la vraie réponse
       setMessages(prev => [...prev.slice(0, -1), { text: botResponse, sender: "bot" }]);
     } catch (error) {
       console.error("Erreur:", error);
@@ -86,22 +79,22 @@ function ChatMath() {
   };
 
   return (
-    <div className="chat-app-container">
-      {/* <div className="chat-header">
-        
-      </div> */}
+    <div className="math-chat-container">
+      <div className="math-chat-header">
+        <button className="math-chat-back-btn" onClick={() => navigate('/modules')}>
+          <ArrowLeft size={24} />
+        </button>
+        <h2 className="math-chat-title">Mathématiques</h2>
+      </div>
     
-      <div className="chat-content">
-        <div className="chat-messages" ref={messagesContainerRef}>
-          <div className="logo-container">
-            <img src={logo} alt="Logo" className="welcome-logo" />
-          </div>
+      <div className="math-chat-content">
+        <div className="math-chat-messages" ref={messagesContainerRef}>
           {messages.map((msg, index) => (
             <div 
               key={index} 
-              className={`message ${msg.sender === "user" ? "user-message" : "bot-message"}`}
+              className={`math-chat-message ${msg.sender === "user" ? "math-chat-user-message" : "math-chat-bot-message"}`}
             >
-              <div className="message-content">
+              <div className="math-chat-message-content">
                 {msg.text.includes('$$') ? (
                   <BlockMath math={msg.text.replace(/^\$\$(.*)\$\$$/, '$1')} />
                 ) : (
@@ -113,16 +106,16 @@ function ChatMath() {
           <div ref={messagesEndRef} />
           
           {messages.length === 1 && (
-            <div className="suggestions-container">
+            <div className="math-chat-suggestions">
               <h5>Questions suggérées:</h5>
-              <div className="suggestions-grid">
+              <div className="math-chat-suggestions-grid">
                 {suggestedQuestions.map((question, index) => (
                   <button 
                     key={index}
-                    className="suggestion-btn"
+                    className="math-chat-suggestion-btn"
                     onClick={() => {
                       setInputMessage(question);
-                      document.querySelector('.chat-input input').focus();
+                      document.querySelector('.math-chat-input input').focus();
                     }}
                   >
                     {question}
@@ -134,8 +127,8 @@ function ChatMath() {
         </div>
       </div>
 
-      <div className="chat-footer">
-        <form onSubmit={handleSendMessage} className="chat-input">
+      <div className="math-chat-footer">
+        <form onSubmit={handleSendMessage} className="math-chat-input">
           <input
             type="text"
             value={inputMessage}
@@ -143,16 +136,13 @@ function ChatMath() {
             placeholder="Posez votre question mathématique..."
             disabled={isLoading}
           />
-          <button type="button" className="btn attachment-btn" disabled={isLoading}>
-            <Paperclip />
-          </button>
           <button 
             type="submit" 
-            className="btn btn-primary send-btn"
+            className="math-chat-send-btn"
             disabled={isLoading}
           >
             {isLoading ? (
-              <div className="spinner-border spinner-border-sm" role="status">
+              <div className="math-chat-spinner" role="status">
                 <span className="visually-hidden">Chargement...</span>
               </div>
             ) : (
