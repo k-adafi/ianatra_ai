@@ -257,7 +257,6 @@ function App() {
         } />
         <Route path='/connexion' element={
           <div className='row'>
-            <Header />
             <div className="container">
               <Connexion />
             </div>
@@ -266,7 +265,6 @@ function App() {
         } />
         <Route path='/inscription' element={
           <div className='row'>
-            <Header />
             <div className="container">
               <Inscription />
             </div>

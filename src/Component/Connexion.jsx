@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FaGoogle } from 'react-icons/fa';
 import { 
   signInWithEmailAndPassword,
   signInWithPopup,
   sendPasswordResetEmail 
 } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase/firebaseConfig.js";
+import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import '../style/connexion.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import { GoOrganization } from "react-icons/go";
 
 function Connexion() {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    password: '',
+    showPassword: false
   });
 
   const [errors, setErrors] = useState({
@@ -24,6 +28,8 @@ function Connexion() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [showResetForm, setShowResetForm] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +49,7 @@ function Connexion() {
       isValid = false;
     }
 
-    if (!credentials.password) {
+    if (!credentials.password && !showResetForm) {
       newErrors.password = "Le mot de passe est requis";
       isValid = false;
     }
@@ -116,7 +122,7 @@ function Connexion() {
     
     try {
       await sendPasswordResetEmail(auth, credentials.email);
-      alert(`Un email de réinitialisation a été envoyé à ${credentials.email}`);
+      setResetEmailSent(true);
     } catch (error) {
       console.error("Erreur de réinitialisation:", error);
       setErrors({
@@ -127,90 +133,209 @@ function Connexion() {
   };
 
   return (
-    <section className="auth-page">
+    <motion.section 
+      className="auth-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="auth-container">
-        <div className="auth-card">
+        <motion.div 
+          className="auth-card"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <div className="auth-header">
-            <h2>Connexion</h2>
-            <p>Bienvenue de retour ! Veuillez vous connecter à votre compte.</p>
+            <h2>{showResetForm ? 'Réinitialisation' : 'Connexion'}</h2>
+            <p>
+              {showResetForm 
+                ? resetEmailSent 
+                  ? "Un email de réinitialisation a été envoyé" 
+                  : "Entrez votre email pour réinitialiser votre mot de passe"
+                : "Bienvenue de retour ! Veuillez vous connecter à votre compte."}
+            </p>
           </div>
 
-          {errors.general && <div className="alert alert-danger">{errors.general}</div>}
+          {errors.general && (
+            <motion.div 
+              className="alert alert-danger"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              {errors.general}
+            </motion.div>
+          )}
 
-          <form className="auth-form" onSubmit={handleEmailLogin}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email"
-                name="email" 
-                placeholder="exemple@email.com"
-                value={credentials.email} 
-                onChange={handleChange} 
-                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                required 
-              />
-              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Mot de passe</label>
-              <input 
-                type="password" 
-                id="password"
-                name="password" 
-                placeholder="••••••••"
-                value={credentials.password} 
-                onChange={handleChange} 
-                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                required 
-              />
-              {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-            </div>
-
-            <div className="text-end mb-3">
+          {resetEmailSent ? (
+            <motion.div
+              className="text-center py-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <div className="success-animation mb-3">
+                <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                  <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                  <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+              </div>
+              <h4 className="text-success">Email envoyé !</h4>
+              <p>Vérifiez votre boîte de réception à l'adresse {credentials.email}</p>
               <button 
-                type="button" 
-                className="btn btn-link p-0"
-                onClick={handleResetPassword}
+                className="btn btn-link"
+                onClick={() => {
+                  setShowResetForm(false);
+                  setResetEmailSent(false);
+                }}
               >
-                Mot de passe oublié ?
+                Retour à la connexion
               </button>
-            </div>
-            
-            <button 
-              type="submit" 
-              className="btn btn-primary w-100 auth-btn" 
-              disabled={loading}
-            >
-              {loading ? (
+            </motion.div>
+          ) : (
+            <form className="auth-form" onSubmit={handleEmailLogin}>
+              <div className="form-group">
+                <label htmlFor="email" className="d-flex align-items-center">
+                  <Mail size={18} className="me-2" />
+                  Email
+                </label>
+                <input 
+                  type="email" 
+                  id="email"
+                  name="email" 
+                  placeholder="exemple@email.com"
+                  value={credentials.email} 
+                  onChange={handleChange} 
+                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                  required 
+                />
+                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+              </div>
+
+              {!showResetForm && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="form-group">
+                    <label htmlFor="password" className="d-flex align-items-center">
+                      <Lock size={18} className="me-2" />
+                      Mot de passe
+                    </label>
+                    <div className="input-group">
+                      <input 
+                        type={credentials.showPassword ? "text" : "password"} 
+                        id="password"
+                        name="password" 
+                        placeholder="••••••••"
+                        value={credentials.password} 
+                        onChange={handleChange} 
+                        className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                        required 
+                      />
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-secondary"
+                        onClick={() => setCredentials({...credentials, showPassword: !credentials.showPassword})}
+                      >
+                        {credentials.showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                  </div>
+                </motion.div>
+              )}
+
+              {!showResetForm ? (
                 <>
-                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                  Connexion en cours...
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div className="form-check">
+                      <input 
+                        type="checkbox" 
+                        className="form-check-input" 
+                        id="rememberMe"
+                      />
+                      <label className="form-check-label" htmlFor="rememberMe">
+                        Se souvenir de moi
+                      </label>
+                    </div>
+                    <button 
+                      type="button" 
+                      className="btn btn-oublier p-0"
+                      onClick={() => setShowResetForm(true)}
+                    >
+                      Mot de passe oublié ?
+                    </button>
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    className="btn btn-primary w-100 auth-btn" 
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Connexion en cours...
+                      </>
+                    ) : (
+                      <>
+                        Se connecter <ArrowRight size={18} className="ms-2" />
+                      </>
+                    )}
+                  </button>
                 </>
-              ) : "Se connecter"}
-            </button>
+              ) : (
+                <>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary w-100 auth-btn mb-2" 
+                    onClick={handleResetPassword}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Envoi en cours...
+                      </>
+                    ) : "Envoyer le lien de réinitialisation"}
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-outline-secondary w-100"
+                    onClick={() => setShowResetForm(false)}
+                  >
+                    Annuler
+                  </button>
+                </>
+              )}
 
-            <div className="auth-footer">
-              <p>Vous n'avez pas de compte ? <a href="/inscription">S'inscrire</a></p>
-            </div>
+              <div className="auth-footer mt-3">
+                <p>Vous n'avez pas de compte ? <a href="/inscription">S'inscrire</a></p>
+              </div>
 
-            <div className="auth-divider">
-              <span>Ou continuer avec</span>
-            </div>
+              {!showResetForm && (
+                <>
+                  <div className="auth-divider">
+                    <span>Ou continuer avec</span>
+                  </div>
 
-            <button 
-              type="button" 
-              className="btn btn-outline-secondary w-100 auth-btn"
-              onClick={handleGoogleLogin}
-              disabled={loading}
-            >
-              <i className="bi bi-google me-2"></i> Google
-            </button>
-          </form>
-        </div>
+                  <button 
+                    type="button" 
+                    className="btn btn-google w-100 auth-btn"
+                    onClick={handleGoogleLogin}
+                    disabled={loading}
+                  >
+                    <FaGoogle/>
+                    Google
+                  </button>
+                </>
+              )}
+            </form>
+          )}
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

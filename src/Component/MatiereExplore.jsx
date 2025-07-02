@@ -43,7 +43,7 @@ function MatiereExplore() {
     <Container className="matiere-explore-container">
       <div className="row">
         <div className="col">
-          <Link to="/" className='btn-history'><CircleArrowLeft /></Link>
+          <Link to="/acceuil" className='btn-history'><CircleArrowLeft /></Link>
         </div>
         <div className="col">
           <h2 className="text-center mb-4">Explorez les modules</h2>
@@ -65,7 +65,7 @@ function MatiereExplore() {
                   >
                     {matiere.icon}
                   </div>
-                  <Card.Title className="text-center">{matiere.nom}</Card.Title>
+                  <Card.Title className="text-cente matiere-text">{matiere.nom}</Card.Title>
                 </Card.Body>
               </Card>
             </Link>

@@ -1,0 +1,163 @@
+/* src/style/chatEtude.css */
+
+/* --- Variables de couleur (inspirées de votre home.css) --- */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --light-color: #ecf0f1;
+  --text-color: #333;
+  --gradient-primary: linear-gradient(135deg, #3498db, #2c3e50);
+}
+
+/* --- Conteneur principal de la page --- */
+.chat-etude-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+  /* Arrière-plan décoratif subtil */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.welcome-logo {
+  max-width: 250px;
+  margin-bottom: 2rem;
+}
+
+.welcome-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Grille des matières --- */
+.matiere-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* --- Carte de matière individuelle --- */
+.matiere-link {
+  text-decoration: none;
+}
+
+/* Style de base pour la carte */
+.matiere-card {
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+/* Bordure colorée à gauche, animée */
+.matiere-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background-color: var(--matiere-color);
+  transition: width 0.3s ease;
+}
+
+/* Icône de la matière */
+.matiere-icon {
+  color: var(--matiere-color);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Nom de la matière */
+.matiere-nom {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+/* --- Effets au survol (Hover) et au focus pour l'accessibilité --- */
+.matiere-link:hover .matiere-card,
+.matiere-link:focus-visible .matiere-card {
+  transform: translateY(-8px) !important; /* !important pour outrepasser l'animation de Framer Motion si besoin */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  background: var(--matiere-color);
+}
+
+.matiere-link:hover .matiere-card::before,
+.matiere-link:focus-visible .matiere-card::before {
+  width: 10px; /* La barre de couleur s'élargit */
+}
+
+.matiere-link:hover .matiere-card .matiere-icon,
+.matiere-link:focus-visible .matiere-card .matiere-icon {
+  color: white;
+  transform: scale(1.1); /* L'icône grossit un peu */
+}
+
+.matiere-link:hover .matiere-card .matiere-nom,
+.matiere-link:focus-visible .matiere-card .matiere-nom {
+  color: white;
+}
+
+/* --- Accessibilité pour le focus --- */
+.matiere-link:focus {
+  outline: none;
+}
+
+.matiere-link:focus-visible .matiere-card {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 3px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  .welcome-title {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+  .matiere-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .matiere-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  .matiere-card {
+    padding: 1.5rem 0.5rem;
+  }
+  .matiere-nom {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+  .matiere-grid {
+    /* Sur mobile, 2 cartes par ligne */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

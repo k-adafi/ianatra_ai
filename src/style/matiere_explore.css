@@ -22,6 +22,10 @@
   transition: transform 0.3s ease;
 }
 
+.matiere-text{
+  text-decoration: none;
+}
+
 .matiere-card:hover .matiere-icon {
   transform: scale(1.2);
 }
