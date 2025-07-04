@@ -471,6 +471,85 @@ textarea:focus {
   outline-offset: 3px;
 }
 
+
+
+
+
+
+/* Ajoutez ces styles à home.css */
+
+/* Quiz Styles */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #3498db, #2c3e50);
+}
+
+.quiz-card {
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.quiz-header h3 {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.option-item {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-item:hover {
+  background-color: #e9ecef;
+}
+
+.option-selected {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.success-card {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.text-success {
+  color: #4CAF50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quiz-card {
+    padding: 1.5rem;
+  }
+  
+  .quiz-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .quiz-navigation button {
+    width: 100%;
+  }
+}
+
 /* Dark mode 
 @media (prefers-color-scheme: dark) {
   .welcome-page {

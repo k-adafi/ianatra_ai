@@ -12,6 +12,7 @@ import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import '../style/connexion.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { GoOrganization } from "react-icons/go";
+import google from "../assets/images/google.png";
 
 function Connexion() {
   const navigate = useNavigate();
@@ -326,7 +327,7 @@ function Connexion() {
                     onClick={handleGoogleLogin}
                     disabled={loading}
                   >
-                    <FaGoogle/>
+                    <img className="me-2" src={google} alt="" />
                     Google
                   </button>
                 </>

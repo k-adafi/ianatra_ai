@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaGoogle } from 'react-icons/fa';
+import google from "../assets/images/google.png";
 
 import { 
   createUserWithEmailAndPassword,
@@ -448,7 +449,7 @@ function Inscription() {
                 onClick={handleGoogleSignUp}
                 disabled={loading}
               >
-                <FaGoogle /> Google
+                <img className="me-2" src={google} alt="" /> Google
               </button>
             </form>
           )}

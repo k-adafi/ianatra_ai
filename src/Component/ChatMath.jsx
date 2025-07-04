@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../style/chatetude.css';
-import { Paperclip, Send, ArrowLeft } from 'lucide-react';
+import { Paperclip, Send, ArrowLeft, AudioLines } from 'lucide-react';
 // import logo from '../assets/Logo/logo_long_bleu.png';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
@@ -136,6 +136,9 @@ function ChatMath() {
             placeholder="Posez votre question mathématique..."
             disabled={isLoading}
           />
+          <button type="button" className="btn ms-2">
+            <Paperclip />
+          </button>
           <button 
             type="submit" 
             className="math-chat-send-btn"
@@ -148,6 +151,9 @@ function ChatMath() {
             ) : (
               <Send />
             )}
+          </button>
+          <button type="button" className="btn ms-2">
+            <AudioLines />
           </button>
         </form>
       </div>
